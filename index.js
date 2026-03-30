@@ -47,7 +47,7 @@ app.listen(3000, () => {
   console.log("Server Started");
 });
 
-export default function generateID(length = 10) {
+function generateID(length = 10) {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
