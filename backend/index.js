@@ -1,11 +1,14 @@
 import express from "express";
+import cors from "cors";
 const app = express();
+app.use(cors({ origin: "http://localhost:3001" }));
 app.use(express.json());
 
 let todo = [];
 
 function generateID(length = 8) {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -25,7 +28,7 @@ app.post("/todo", (req, res) => {
   const getTodo = req.body;
   const newTodo = { ...getTodo, id: generateID(8) };
   todo.push(newTodo);
-  res.status(201).send("Added Successfully");
+  res.status(201).json("Added Successfully").send();
 });
 
 app.put("/todo/:id", (req, res) => {
@@ -33,7 +36,7 @@ app.put("/todo/:id", (req, res) => {
   const { id } = req.params;
 
   todo = todo.map((item) => {
-    if (item.id === id) { 
+    if (item.id === id) {
       return { ...item, ...getTodo, id: item.id };
     }
     return item;
@@ -41,16 +44,15 @@ app.put("/todo/:id", (req, res) => {
 
   res.status(200).json({
     message: "Edited Successfully",
-    data: todo,
   });
 });
 
 app.delete("/todo/:id", (req, res) => {
   const { id } = req.params;
   todo = todo.filter((item) => item.id !== id);
-  res.send("Deleted Successfully");
+  res.send({ message: "Deleted Successfully" });
 });
 
-app.listen(3000, () => {
-  console.log("Server Started at http://localhost:3000");
+app.listen(5000, () => {
+  console.log("Server Started at http://localhost:5000");
 });
