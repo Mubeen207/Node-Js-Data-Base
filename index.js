@@ -18,6 +18,23 @@ app.post("/todo", (req, res) => {
   res.send("added Sussecfully");
 });
 
+app.put("/todo/:id", (req, res) => {
+  const getTodo = req.body;
+  const { id } = req.params;
+
+  const editedTodo = todo.map((item) => {
+    if (item.id == id) {
+      return { ...item, ...getTodo, id: item.id };
+    }
+    return item;
+  });
+  todo = editedTodo;
+  res.status(200).json({
+    message: "Edited Successfully",
+    data: todo,
+  });
+});
+
 app.delete("/todo/:id", (req, res) => {
   const { id } = req.params;
   todo = todo.filter((todo) => todo.id !== id);
