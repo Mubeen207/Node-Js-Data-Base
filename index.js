@@ -4,6 +4,15 @@ app.use(express.json());
 
 let todo = [];
 
+function generateID(length = 8) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
 app.get("/", (req, res) => {
   res.send({ message: "Home Page" });
 });
@@ -14,21 +23,22 @@ app.get("/todos", (req, res) => {
 
 app.post("/todo", (req, res) => {
   const getTodo = req.body;
-  todo.push({ ...getTodo, id: generateID(8) });
-  res.send("added Sussecfully");
+  const newTodo = { ...getTodo, id: generateID(8) };
+  todo.push(newTodo);
+  res.status(201).send("Added Successfully");
 });
 
 app.put("/todo/:id", (req, res) => {
   const getTodo = req.body;
   const { id } = req.params;
 
-  const editedTodo = todo.map((item) => {
-    if (item.id == id) {
+  todo = todo.map((item) => {
+    if (item.id === id) { 
       return { ...item, ...getTodo, id: item.id };
     }
     return item;
   });
-  todo = editedTodo;
+
   res.status(200).json({
     message: "Edited Successfully",
     data: todo,
@@ -37,24 +47,10 @@ app.put("/todo/:id", (req, res) => {
 
 app.delete("/todo/:id", (req, res) => {
   const { id } = req.params;
-  todo = todo.filter((todo) => todo.id !== id);
-  console.log(todo, id);
-
-  res.send("Deleted Sussecfully");
+  todo = todo.filter((item) => item.id !== id);
+  res.send("Deleted Successfully");
 });
 
 app.listen(3000, () => {
-  console.log("Server Started");
+  console.log("Server Started at http://localhost:3000");
 });
-
-function generateID(length = 10) {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-
-  for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-
-  return result;
-}
