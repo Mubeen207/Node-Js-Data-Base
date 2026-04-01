@@ -15,7 +15,7 @@ app.get("/todos", (req, res) => {
 
 app.post("/todo", (req, res) => {
   const todo = req.body;
-  todo.push({ ...todo, id: todo.lenght + 1 });
+  todo.push({ ...todo, id: todo.length + 1 });
   res.send("added Sussecfully");
 });
 
