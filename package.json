@@ -1,0 +1,25 @@
+{
+  "name": "node-js-data-base",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Mubeen207/Node-Js-Data-Base#readme",
+  "bugs": {
+    "url": "https://github.com/Mubeen207/Node-Js-Data-Base/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mubeen207/Node-Js-Data-Base.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
+}
