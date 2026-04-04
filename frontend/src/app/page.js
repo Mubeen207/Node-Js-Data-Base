@@ -9,7 +9,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/todos");
+      const res = await fetch("https://node-js-data-base.vercel.app/todos");
       if (!res.ok) throw new Error("Server response issues");
       const data = await res.json();
       setTodos(data);
@@ -23,7 +23,7 @@ export default function Home() {
 
   const handleAdd = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch("http://localhost:5000/todo", {
+    const response = await fetch("https://node-js-data-base.vercel.app/todo", {
       method: "POST",
       body: JSON.stringify({
         title: todoInput,
@@ -40,11 +40,14 @@ export default function Home() {
   };
   const haldleUpdate = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch(`http://localhost:5000/todo/${isId}`, {
-      method: "PUT",
-      body: JSON.stringify({ title: todoInput }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+      `https://node-js-data-base.vercel.app/todo/${isId}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ title: todoInput }),
+        headers: { "Content-Type": "application/json" },
+      },
+    );
     const data = await response.json();
     alert(data.message);
     setTodoInput("");
@@ -58,19 +61,22 @@ export default function Home() {
     setIsID(todo._id);
   };
   const handleDelete = async (todo) => {
-    const response = await fetch(`http://localhost:5000/todo/${todo._id}`, {
-      method: "DELETE",
-      params: JSON.stringify({
-        id: isId,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await response.json();
-    alert(data.message);
-    setTodoInput("");
-    isEdit(false);
-    setIsID("");
-    fetchData();
+    try {
+      const response = await fetch(
+        `https://node-js-data-base.vercel.app/todo/${todo._id}`,
+        {
+          method: "DELETE",
+        },
+      );
+      const data = await response.json();
+      setTodoInput("");
+      isEdit(false);
+      setIsID("");
+      alert(data.message);
+      fetchData();
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
   };
   return (
     <>
