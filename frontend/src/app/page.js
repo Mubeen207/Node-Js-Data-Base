@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import toTitleCase from "@/components/titleCase";
 export default function Home() {
   const [todoInput, setTodoInput] = useState("");
   const [edit, isEdit] = useState(false);
