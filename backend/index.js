@@ -61,7 +61,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 const app = express();
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // const dbUser = "mubeenulislam207_db_user";
