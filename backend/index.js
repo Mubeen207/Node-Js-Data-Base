@@ -59,17 +59,16 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-
+import "dotenv/config";
 const app = express();
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
-const dbUser = "mubeenulislam207_db_user";
-const dbPass = "mubeen123.";
-const dbName = "todoApp";
+// const dbUser = "mubeenulislam207_db_user";
+// const dbPass = "mubeen123.";
+// const dbName = "todoApp";
 
-const uri = `mongodb+srv://${dbUser}:${dbPass}@cluster0.nq3cavk.mongodb.net/${dbName}?retryWrites=true&w=majority`;
-
+const uri = process.env.MONGO_URI;
 mongoose
   .connect(uri)
   .then(() => console.log("MongoDB Connected..."))
