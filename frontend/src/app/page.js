@@ -32,7 +32,7 @@ export default function Home() {
     });
 
     const data = await response.json();
-    alert(data);
+    alert(data.message);
     setTodoInput("");
     isEdit(false);
     setIsID("");
@@ -42,12 +42,7 @@ export default function Home() {
     if (todoInput === "") return alert("Please Enter Todo");
     const response = await fetch(`http://localhost:5000/todo/${isId}`, {
       method: "PUT",
-      body: JSON.stringify({
-        title: todoInput,
-      }),
-      params: JSON.stringify({
-        id: isId,
-      }),
+      body: JSON.stringify({ title: todoInput }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await response.json();
@@ -60,10 +55,10 @@ export default function Home() {
   const haldleEdit = (todo) => {
     isEdit(true);
     setTodoInput(todo.title);
-    setIsID(todo.id);
+    setIsID(todo._id);
   };
   const handleDelete = async (todo) => {
-    const response = await fetch(`http://localhost:5000/todo/${todo.id}`, {
+    const response = await fetch(`http://localhost:5000/todo/${todo._id}`, {
       method: "DELETE",
       params: JSON.stringify({
         id: isId,
@@ -94,7 +89,7 @@ export default function Home() {
       <ul>
         {todos.map((todo) => {
           return (
-            <li key={todo.id}>
+            <li key={todo._id}>
               <div>{todo.title}</div>
               <button onClick={() => haldleEdit(todo)}>Edit</button>
               <button onClick={() => handleDelete(todo)}>Delete</button>
