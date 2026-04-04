@@ -63,11 +63,6 @@ import "dotenv/config";
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.json());
-
-// const dbUser = "mubeenulislam207_db_user";
-// const dbPass = "mubeen123.";
-// const dbName = "todoApp";
-
 const uri = process.env.MONGO_URI;
 mongoose
   .connect(uri)
