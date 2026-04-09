@@ -31,7 +31,7 @@ function Home() {
     const [isId, setIsID] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const fetchData = async ()=>{
         try {
-            const res = await fetch("http://localhost:5000/todos");
+            const res = await fetch("https://ecommercedb-five.vercel.app/todos");
             if (!res.ok) throw new Error("Server response issues");
             const data = await res.json();
             setTodos(data);
@@ -44,7 +44,7 @@ function Home() {
     }, []);
     const handleAdd = async ()=>{
         if (todoInput === "") return alert("Please Enter Todo");
-        const response = await fetch("http://localhost:5000/todo", {
+        const response = await fetch("https://ecommercedb-five.vercel.app/todo", {
             method: "POST",
             body: JSON.stringify({
                 title: todoInput
@@ -62,7 +62,7 @@ function Home() {
     };
     const haldleUpdate = async ()=>{
         if (todoInput === "") return alert("Please Enter Todo");
-        const response = await fetch(`http://localhost:5000/todo/${isId}`, {
+        const response = await fetch(`https://ecommercedb-five.vercel.app/todo/${isId}`, {
             method: "PUT",
             body: JSON.stringify({
                 title: todoInput
@@ -85,7 +85,7 @@ function Home() {
     };
     const handleDelete = async (todo)=>{
         try {
-            const response = await fetch(`http://localhost:5000/todo/${todo._id}`, {
+            const response = await fetch(`https://ecommercedb-five.vercel.app/todo/${todo._id}`, {
                 method: "DELETE"
             });
             const data = await response.json();

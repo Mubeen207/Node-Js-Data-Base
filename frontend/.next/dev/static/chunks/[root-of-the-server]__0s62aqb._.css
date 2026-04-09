@@ -125,19 +125,11 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-red-200: #ffcaca;
-    --color-red-300: #ffa3a3;
-    --color-red-700: #bf000f;
     --color-orange-800: #9f2d00;
     --color-orange-900: #7e2a0c;
-    --color-green-200: #b9f8cf;
-    --color-green-300: #7bf1a8;
-    --color-green-700: #008138;
     --color-blue-50: #eff6ff;
     --color-blue-100: #dbeafe;
     --color-blue-600: #155dfc;
-    --color-blue-700: #1447e6;
-    --color-blue-800: #193cb8;
     --color-indigo-500: #625fff;
     --color-indigo-600: #4f39f6;
     --color-indigo-700: #432dd7;
@@ -146,7 +138,6 @@
     --color-rose-600: #e70044;
     --color-gray-50: #f9fafb;
     --color-gray-100: #f3f4f6;
-    --color-gray-200: #e5e7eb;
     --color-gray-300: #d1d5dc;
     --color-gray-400: #99a1af;
     --color-gray-500: #6a7282;
@@ -162,10 +153,7 @@
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    --font-weight-extrabold: 800;
     --tracking-tight: -.025em;
-    --radius-sm: .25rem;
-    --radius-md: .375rem;
     --radius-lg: .5rem;
     --radius-xl: .75rem;
     --default-transition-duration: .15s;
@@ -176,19 +164,11 @@
 
   @supports (color: lab(0% 0 0)) {
     :root, :host {
-      --color-red-200: lab(86.017% 19.8815 7.75869);
-      --color-red-300: lab(76.5514% 36.4219 15.5335);
-      --color-red-700: lab(40.4273% 67.2623 53.7441);
       --color-orange-800: lab(37.1566% 46.6433 50.5562);
       --color-orange-900: lab(30.2951% 36.0434 37.671);
-      --color-green-200: lab(92.4222% -26.4702 12.9427);
-      --color-green-300: lab(86.9953% -47.2691 25.0054);
-      --color-green-700: lab(47.0329% -47.0239 31.4788);
       --color-blue-50: lab(96.492% -1.14647 -5.11479);
       --color-blue-100: lab(92.0301% -2.24757 -11.6453);
       --color-blue-600: lab(44.0605% 29.0279 -86.0352);
-      --color-blue-700: lab(36.9089% 35.0961 -85.6872);
-      --color-blue-800: lab(30.2514% 27.7854 -70.2699);
       --color-indigo-500: lab(48.295% 38.3129 -81.9673);
       --color-indigo-600: lab(38.4009% 52.6132 -92.3857);
       --color-indigo-700: lab(32.4486% 49.2217 -84.6695);
@@ -197,7 +177,6 @@
       --color-rose-600: lab(49.1882% 81.577 36.0311);
       --color-gray-50: lab(98.2596% -.247031 -.706708);
       --color-gray-100: lab(96.1596% -.082314 -1.13575);
-      --color-gray-200: lab(91.6229% -.159085 -2.26791);
       --color-gray-300: lab(85.1236% -.612259 -3.7138);
       --color-gray-400: lab(65.9269% -.832707 -8.17474);
       --color-gray-500: lab(47.7841% -.393212 -10.0268);
@@ -516,16 +495,8 @@
     justify-content: space-between;
   }
 
-  .justify-center {
-    justify-content: center;
-  }
-
   .gap-2 {
     gap: calc(var(--spacing) * 2);
-  }
-
-  .gap-6 {
-    gap: calc(var(--spacing) * 6);
   }
 
   :where(.space-y-3 > :not(:last-child)) {
@@ -540,20 +511,8 @@
     overflow: hidden;
   }
 
-  .rounded {
-    border-radius: .25rem;
-  }
-
   .rounded-lg {
     border-radius: var(--radius-lg);
-  }
-
-  .rounded-md {
-    border-radius: var(--radius-md);
-  }
-
-  .rounded-sm {
-    border-radius: var(--radius-sm);
   }
 
   .rounded-xl {
@@ -565,55 +524,12 @@
     border-width: 1px;
   }
 
-  .border-0 {
-    border-style: var(--tw-border-style);
-    border-width: 0;
-  }
-
   .border-gray-100 {
     border-color: var(--color-gray-100);
   }
 
   .border-gray-300 {
     border-color: var(--color-gray-300);
-  }
-
-  .bg-\[\#180c5a\] {
-    background-color: #180c5a;
-  }
-
-  .bg-\[\#180c5a\]\/50 {
-    background-color: #180c5a80;
-    background-color: lab(9.69281% 26.6941 -45.0215 / .5);
-  }
-
-  .bg-\[\#331b04\] {
-    background-color: #331b04;
-  }
-
-  .bg-\[\#331b04\]\/0 {
-    background-color: #0000;
-    background-color: lab(0% 0 0 / 0);
-  }
-
-  .bg-\[\#331b04\]\/50 {
-    background-color: #331b0480;
-    background-color: lab(12.7952% 10.5276 17.5459 / .5);
-  }
-
-  .bg-\[\#331b04\]\/60 {
-    background-color: #331b0499;
-    background-color: lab(12.7952% 10.5276 17.5458 / .6);
-  }
-
-  .bg-\[\#331b04\]\/70 {
-    background-color: #331b04b3;
-    background-color: lab(12.7952% 10.5276 17.5459 / .7);
-  }
-
-  .bg-\[\#331b04\]\/80 {
-    background-color: #331b04cc;
-    background-color: lab(12.7952% 10.5276 17.5459 / .8);
   }
 
   .bg-blue-50 {
@@ -624,32 +540,12 @@
     background-color: var(--color-gray-50);
   }
 
-  .bg-gray-200 {
-    background-color: var(--color-gray-200);
-  }
-
-  .bg-gray-500 {
-    background-color: var(--color-gray-500);
-  }
-
-  .bg-green-200 {
-    background-color: var(--color-green-200);
-  }
-
   .bg-indigo-600 {
     background-color: var(--color-indigo-600);
   }
 
   .bg-orange-800 {
     background-color: var(--color-orange-800);
-  }
-
-  .bg-red-200 {
-    background-color: var(--color-red-200);
-  }
-
-  .bg-red-300 {
-    background-color: var(--color-red-300);
   }
 
   .bg-rose-50 {
@@ -672,20 +568,12 @@
     padding: calc(var(--spacing) * 6);
   }
 
-  .px-2 {
-    padding-inline: calc(var(--spacing) * 2);
-  }
-
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
   }
 
   .px-6 {
     padding-inline: calc(var(--spacing) * 6);
-  }
-
-  .py-2 {
-    padding-block: calc(var(--spacing) * 2);
   }
 
   .py-2\.5 {
@@ -723,11 +611,6 @@
     font-weight: var(--font-weight-bold);
   }
 
-  .font-extrabold {
-    --tw-font-weight: var(--font-weight-extrabold);
-    font-weight: var(--font-weight-extrabold);
-  }
-
   .font-medium {
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
@@ -743,56 +626,8 @@
     letter-spacing: var(--tracking-tight);
   }
 
-  .text-\[\#2b0fca\] {
-    color: #2b0fca;
-  }
-
-  .text-\[\#33\] {
-    color: #33;
-  }
-
-  .text-\[\#180c5a\] {
-    color: #180c5a;
-  }
-
-  .text-\[\#331b04\] {
-    color: #331b04;
-  }
-
-  .text-\[\#338\] {
-    color: #338;
-  }
-
-  .text-\[\#788833\] {
-    color: #788833;
-  }
-
-  .text-\[\#888633\] {
-    color: #888633;
-  }
-
-  .text-\[\#cac70f\] {
-    color: #cac70f;
-  }
-
-  .text-\[\#ff\] {
-    color: #ff;
-  }
-
-  .text-\[\#fff\] {
-    color: #fff;
-  }
-
   .text-blue-600 {
     color: var(--color-blue-600);
-  }
-
-  .text-blue-700 {
-    color: var(--color-blue-700);
-  }
-
-  .text-blue-800 {
-    color: var(--color-blue-800);
   }
 
   .text-gray-400 {
@@ -811,24 +646,12 @@
     color: var(--color-gray-800);
   }
 
-  .text-green-700 {
-    color: var(--color-green-700);
-  }
-
-  .text-red-700 {
-    color: var(--color-red-700);
-  }
-
   .text-rose-600 {
     color: var(--color-rose-600);
   }
 
   .text-white {
     color: var(--color-white);
-  }
-
-  .lowercase {
-    text-transform: lowercase;
   }
 
   .italic {
@@ -875,12 +698,6 @@
   }
 
   @media (hover: hover) {
-    .hover\:bg-green-300:hover {
-      background-color: var(--color-green-300);
-    }
-  }
-
-  @media (hover: hover) {
     .hover\:bg-indigo-700:hover {
       background-color: var(--color-indigo-700);
     }
@@ -889,12 +706,6 @@
   @media (hover: hover) {
     .hover\:bg-orange-900:hover {
       background-color: var(--color-orange-900);
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:bg-red-300:hover {
-      background-color: var(--color-red-300);
     }
   }
 
