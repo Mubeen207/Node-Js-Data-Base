@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import toTitleCase from "@/app/components/ToTitleCase";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 export default function Home() {
   const [todoInput, setTodoInput] = useState("");
   const [edit, isEdit] = useState(false);
