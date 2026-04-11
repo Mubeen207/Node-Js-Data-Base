@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import toTitleCase from "@/components/titleCase";
+import Head from "next/head";
 export default function Home() {
   const [todoInput, setTodoInput] = useState("");
   const [edit, isEdit] = useState(false);
@@ -74,6 +75,9 @@ export default function Home() {
   };
   return (
     <>
+    <Head>
+      <title>Todo Application</title>
+    </Head>
       <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-4">
         <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg border border-gray-100">
           <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">
