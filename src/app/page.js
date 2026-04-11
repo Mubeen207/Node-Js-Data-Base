@@ -3,18 +3,36 @@ import React, { useEffect, useState } from "react";
 import toTitleCase from "@/app/components/ToTitleCase";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+
 export default function Home() {
   const [todoInput, setTodoInput] = useState("");
   const [edit, isEdit] = useState(false);
   const [todos, setTodos] = useState(null);
   const [isId, setIsID] = useState("");
+
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  const fetchData = async () => {
+    try {
+      const res = await fetch("https://ecommercedb-five.vercel.app/api/todos");
+      if (!res.ok) throw new Error("Server response issues");
+      const { data } = await res.json();
+      const userData = data.filter(
+        (todo) => todo.email === session.user?.email,
+      );
+      setTodos(userData);
+    } catch (error) {
+      console.log("Server is not connecting...", error.message);
+    }
+  };
+
   useEffect(() => {
     if (status === "unauthenticated") {
       router.replace("/login");
     }
   }, [status, router]);
+
   useEffect(() => {
     if (status === "authenticated") {
       fetchData();
@@ -30,33 +48,14 @@ export default function Home() {
   }
 
   if (!session) return null;
-  const fetchData = async () => {
-    try {
-      const res = await fetch("https://ecommercedb-five.vercel.app/api/todos");
-      if (!res.ok) throw new Error("Server response issues");
-      const data = await res.json();
-      setTodos(data.data);
-    } catch (error) {
-      console.log("Server is not connecting...", error.message);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const handleAdd = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch(
-      "https://ecommercedb-five.vercel.app/api/todo",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          title: todoInput,
-        }),
-        headers: { "Content-Type": "application/json" },
-      },
-    );
-
+    const response = await fetch("https://ecommercedb-five.vercel.app/api/todo", {
+      method: "POST",
+      body: JSON.stringify({ title: todoInput, email: session.user?.email }),
+      headers: { "Content-Type": "application/json" },
+    });
     const data = await response.json();
     alert(data.message);
     setTodoInput("");
@@ -64,16 +63,14 @@ export default function Home() {
     setIsID("");
     fetchData();
   };
+
   const haldleUpdate = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch(
-      `https://ecommercedb-five.vercel.app/api/todo/${isId}`,
-      {
-        method: "PUT",
-        body: JSON.stringify({ title: todoInput }),
-        headers: { "Content-Type": "application/json" },
-      },
-    );
+    const response = await fetch(`https://ecommercedb-five.vercel.app/api/todo/${isId}`, {
+      method: "PUT",
+      body: JSON.stringify({ title: todoInput }),
+      headers: { "Content-Type": "application/json" },
+    });
     const data = await response.json();
     alert(data.message);
     setTodoInput("");
@@ -81,11 +78,13 @@ export default function Home() {
     setIsID("");
     fetchData();
   };
+
   const haldleEdit = (todo) => {
     isEdit(true);
     setTodoInput(todo.title);
     setIsID(todo._id);
   };
+
   const handleDelete = async (todo) => {
     try {
       const response = await fetch(
@@ -104,11 +103,24 @@ export default function Home() {
       console.error("Delete failed:", error);
     }
   };
+
   return (
     <>
       <title>Todo Application</title>
 
       <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-4">
+        <div className="w-full max-w-md flex justify-between items-center mb-2 px-2">
+          <span className="text-xs text-gray-500">
+            User: {session.user?.name}
+          </span>
+          <button
+            onClick={() => signOut()}
+            className="text-xs text-red-500 hover:underline cursor-pointer font-bold"
+          >
+            Logout
+          </button>
+        </div>
+
         <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg border border-gray-100">
           <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">
             Todo Application
@@ -126,14 +138,14 @@ export default function Home() {
             {edit ? (
               <button
                 onClick={haldleUpdate}
-                className="px-6 py-2.5 text-white font-bold bg-indigo-600 hover:bg-indigo-700 active:scale-95 transition-all rounded-lg shadow-md  cursor-pointer"
+                className="px-6 py-2.5 text-white font-bold bg-indigo-600 hover:bg-indigo-700 active:scale-95 transition-all rounded-lg shadow-md cursor-pointer"
               >
                 Update
               </button>
             ) : (
               <button
                 onClick={handleAdd}
-                className="px-6 py-2.5 text-white font-bold bg-orange-800 hover:bg-orange-900 active:scale-95 transition-all rounded-lg shadow-md  cursor-pointer"
+                className="px-6 py-2.5 text-white font-bold bg-orange-800 hover:bg-orange-900 active:scale-95 transition-all rounded-lg shadow-md cursor-pointer"
               >
                 Add
               </button>
@@ -177,12 +189,6 @@ export default function Home() {
           </ul>
         </div>
       </div>
-      <button
-        onClick={() => signOut()}
-        className="text-xs text-red-500 hover:underline cursor-pointer"
-      >
-        Logout
-      </button>
     </>
   );
 }
