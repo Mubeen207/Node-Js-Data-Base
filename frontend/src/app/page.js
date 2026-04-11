@@ -9,7 +9,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const res = await fetch("https://ecommercedb-five.vercel.app/todos");
+      const res = await fetch("https://ecommercedb-five.vercel.app/api/todos");
       if (!res.ok) throw new Error("Server response issues");
       const data = await res.json();
       setTodos(data);
@@ -23,7 +23,7 @@ export default function Home() {
 
   const handleAdd = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch("https://ecommercedb-five.vercel.app/todo", {
+    const response = await fetch("https://ecommercedb-five.vercel.app/api/todo", {
       method: "POST",
       body: JSON.stringify({
         title: todoInput,
@@ -40,7 +40,7 @@ export default function Home() {
   };
   const haldleUpdate = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch(`https://ecommercedb-five.vercel.app/todo/${isId}`, {
+    const response = await fetch(`https://ecommercedb-five.vercel.app/api/todo/${isId}`, {
       method: "PUT",
       body: JSON.stringify({ title: todoInput }),
       headers: { "Content-Type": "application/json" },
@@ -59,7 +59,7 @@ export default function Home() {
   };
   const handleDelete = async (todo) => {
     try {
-      const response = await fetch(`https://ecommercedb-five.vercel.app/todo/${todo._id}`, {
+      const response = await fetch(`https://ecommercedb-five.vercel.app/api/todo/${todo._id}`, {
         method: "DELETE",
       });
       const data = await response.json();
