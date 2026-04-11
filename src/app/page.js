@@ -1,12 +1,35 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import toTitleCase from "@/components/titleCase";
+import toTitleCase from "@/app/components/ToTitleCase";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 export default function Home() {
   const [todoInput, setTodoInput] = useState("");
   const [edit, isEdit] = useState(false);
   const [todos, setTodos] = useState(null);
   const [isId, setIsID] = useState("");
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.replace("/login");
+    }
+  }, [status, router]);
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchData();
+    }
+  }, [status]);
 
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <p className="text-gray-500 font-medium">Verifying Session...</p>
+      </div>
+    );
+  }
+
+  if (!session) return null;
   const fetchData = async () => {
     try {
       const res = await fetch("https://ecommercedb-five.vercel.app/api/todos");
@@ -23,13 +46,16 @@ export default function Home() {
 
   const handleAdd = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch("https://ecommercedb-five.vercel.app/api/todo", {
-      method: "POST",
-      body: JSON.stringify({
-        title: todoInput,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+      "https://ecommercedb-five.vercel.app/api/todo",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          title: todoInput,
+        }),
+        headers: { "Content-Type": "application/json" },
+      },
+    );
 
     const data = await response.json();
     alert(data.message);
@@ -40,11 +66,14 @@ export default function Home() {
   };
   const haldleUpdate = async () => {
     if (todoInput === "") return alert("Please Enter Todo");
-    const response = await fetch(`https://ecommercedb-five.vercel.app/api/todo/${isId}`, {
-      method: "PUT",
-      body: JSON.stringify({ title: todoInput }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(
+      `https://ecommercedb-five.vercel.app/api/todo/${isId}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ title: todoInput }),
+        headers: { "Content-Type": "application/json" },
+      },
+    );
     const data = await response.json();
     alert(data.message);
     setTodoInput("");
@@ -59,9 +88,12 @@ export default function Home() {
   };
   const handleDelete = async (todo) => {
     try {
-      const response = await fetch(`https://ecommercedb-five.vercel.app/api/todo/${todo._id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://ecommercedb-five.vercel.app/api/todo/${todo._id}`,
+        {
+          method: "DELETE",
+        },
+      );
       const data = await response.json();
       setTodoInput("");
       isEdit(false);
@@ -74,9 +106,8 @@ export default function Home() {
   };
   return (
     <>
-    
       <title>Todo Application</title>
-    
+
       <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10 px-4">
         <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-lg border border-gray-100">
           <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center tracking-tight">
@@ -148,6 +179,12 @@ export default function Home() {
           </ul>
         </div>
       </div>
+      <button
+        onClick={() => signOut()}
+        className="text-xs text-red-500 hover:underline cursor-pointer"
+      >
+        Logout
+      </button>
     </>
   );
 }
