@@ -12,7 +12,7 @@ export default function Home() {
       const res = await fetch("https://ecommercedb-five.vercel.app/api/todos");
       if (!res.ok) throw new Error("Server response issues");
       const data = await res.json();
-      setTodos(data);
+      setTodos(data.data);
     } catch (error) {
       console.log("Server is not connecting...", error.message);
     }
