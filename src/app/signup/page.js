@@ -75,8 +75,6 @@ export default function Login() {
           Have an account?<Link href={"/login"}>Login</Link>
         </p>
       </form>
-
-      <button onClick={() => signIn("github")}>Sign in as github</button>
     </>
   );
 }

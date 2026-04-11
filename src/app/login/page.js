@@ -56,8 +56,6 @@ export default function Login() {
           Dont`t have an account<Link href={"/signup"}>Signup</Link>
         </p>
       </form>
-
-      <button onClick={() => signIn("github")}>Sign in as github</button>
     </>
   );
 }

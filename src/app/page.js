@@ -141,11 +141,9 @@ export default function Home() {
           </div>
 
           <ul className="space-y-3">
-            {/* Pehle check karein ke data load ho raha hai ya nahi */}
             {!todos ? (
               <p className="text-center text-gray-500 py-4">Loading...</p>
             ) : todos.length > 0 ? (
-              /* Agar data hai, to map karein */
               todos.map((todo) => (
                 <li
                   key={todo._id}
